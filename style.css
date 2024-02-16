@@ -96,3 +96,11 @@ button {
 .green {
   background-color: green;
 }
+
+.completed-row {
+  color: red;
+}
+
+.completed-column {
+  color: red;
+}
