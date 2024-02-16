@@ -1,0 +1,98 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.hints-container {
+  /* display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: center; */
+  display: flex;
+  align-items: flex-start;
+}
+
+.horizontal-hints {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin-top: 25px;
+}
+
+.vertical-hints {
+  /* display: grid;
+  grid-template-rows: repeat(auto-fill, 1fr);
+  align-items: center; */
+
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  margin-left: 25px;
+}
+
+#grid-container {
+  display: grid;
+  grid-template-columns: repeat(10, 30px);
+  grid-template-rows: repeat(10, 30px);
+  /* gap: 1px; */
+  border: 2px solid black;
+
+  & > div:nth-child(5n) {
+    border-right: 1px solid black;
+  }
+
+  &:nth-child(10n) {
+    border-bottom: 1px solid black;
+  }
+}
+
+.grid-cell {
+  width: 30px;
+  height: 30px;
+  box-sizing: border-box;
+  /* border: 1px solid black; */
+  border: 1px solid #ccc;
+  display: inline-block;
+}
+
+.filled {
+  background-color: #000;
+}
+
+.black {
+  background-color: #000;
+}
+
+.red {
+  background-color: red;
+}
+
+#toggle-label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+button {
+  margin-top: 5px;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.black-mode {
+  background-color: black;
+  color: white;
+}
+
+.red-mode {
+  background-color: red;
+  color: black;
+}
+
+.green {
+  background-color: green;
+}
