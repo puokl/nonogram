@@ -15,23 +15,25 @@ body {
   display: flex;
   align-items: flex-start;
 }
+.horizontal-hints,
+.vertical-hints {
+  padding-top: 1em;
+}
 
 .horizontal-hints {
   display: flex;
   flex-direction: column;
-  gap: 13px;
-  margin-top: 25px;
+  gap: 11.5px;
+  /* margin-top: 15px; */
+  padding-top: 45px;
+  margin-right: 5px;
 }
 
 .vertical-hints {
-  /* display: grid;
-  grid-template-rows: repeat(auto-fill, 1fr);
-  align-items: center; */
-
   display: flex;
   flex-direction: row;
-  gap: 18px;
-  margin-left: 25px;
+  gap: 20px;
+  padding-left: 15px;
 }
 
 #grid-container {
@@ -39,14 +41,17 @@ body {
   grid-template-columns: repeat(10, 30px);
   grid-template-rows: repeat(10, 30px);
   /* gap: 1px; */
-  border: 2px solid black;
+  border: 3px solid black;
 
   & > div:nth-child(5n) {
-    border-right: 1px solid black;
+    border-right: 2px solid black;
+  }
+  & > div:nth-child(10n) {
+    border-right: none;
   }
 
-  &:nth-child(10n) {
-    border-bottom: 1px solid black;
+  & > div:nth-child(n + 41):nth-child(-n + 50) {
+    border-bottom: 2px solid black;
   }
 }
 
@@ -68,7 +73,17 @@ body {
 }
 
 .red {
-  background-color: red;
+  background-color: white;
+}
+.red::before {
+  content: "x";
+  color: black;
+  /* font-weight: bold; */
+  font-family: "Arial", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
 }
 
 #toggle-label {
@@ -83,7 +98,7 @@ button {
   cursor: pointer;
 }
 
-.black-mode {
+/* .black-mode {
   background-color: black;
   color: white;
 }
@@ -91,7 +106,7 @@ button {
 .red-mode {
   background-color: red;
   color: black;
-}
+} */
 
 .green {
   background-color: green;
@@ -103,4 +118,109 @@ button {
 
 .completed-column {
   color: red;
+}
+#error-count {
+  margin-bottom: 20px;
+}
+
+#toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-symbol {
+  font-size: 24px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.red-mode .toggle-symbol.red-mode,
+.black-mode .toggle-symbol.black-mode {
+  color: #ff0000;
+}
+
+.black-mode .toggle-symbol.red-mode,
+.red-mode .toggle-symbol.black-mode {
+  color: #000000;
+}
+/* switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.symbols {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.black-symbol,
+.red-symbol {
+  font-size: 24px;
+  color: #2196f3;
+  transition: color 0.4s;
+}
+
+input:checked + .slider + .symbols .black-symbol {
+  color: black;
+}
+
+input:checked + .slider + .symbols .red-symbol {
+  color: #ff0000;
 }

@@ -107,6 +107,20 @@ class Nonogram {
       colHints.forEach((hint) => (hint.style.color = "red"));
     }
   }
+  updateErrorCount() {
+    const errorCountElement = document.getElementById("error-count");
+    let hearts = "";
+
+    for (let i = 0; i < 3; i++) {
+      if (i < this.errors) {
+        hearts += "&#x2665;";
+      } else {
+        hearts += "&#x2661;";
+      }
+    }
+
+    errorCountElement.innerHTML = hearts;
+  }
 
   toggleCell(row, column) {
     const cell = this.grid[row][column];
@@ -133,8 +147,9 @@ class Nonogram {
       ) {
         this.errors--;
 
-        const errorCountElement = document.getElementById("error-count");
-        errorCountElement.innerText = `Errors left: ${this.errors}`;
+        // const errorCountElement = document.getElementById("error-count");
+        // errorCountElement.innerText = `Errors left: ${this.errors}`;
+        this.updateErrorCount();
 
         cell.colorClass = "green";
 
@@ -164,6 +179,7 @@ class Nonogram {
     }
     this.updateUI();
     this.updateHints();
+    this.updateErrorCount();
   }
 
   checkForWin() {
@@ -182,50 +198,7 @@ class Nonogram {
   }
 
   // Method to update vertical hints
-  // updateVerticalHints() {
-  //   const verticalHintsContainer = document.getElementById("vertical-hints");
-  //   verticalHintsContainer.innerHTML = "";
 
-  //   for (let col = 0; col < this.columns; col++) {
-  //     const solutionColumn = this.getColumnHints(col, true);
-  //     const hintElement = document.createElement("div");
-  //     hintElement.classList.add(`vertical-hint`, `col-${col}`);
-  //     // hintElement.className = `horizontal-hint row-${row}`;
-  //     hintElement.innerText = solutionColumn.join(" ");
-  //     verticalHintsContainer.appendChild(hintElement);
-  //   }
-  // }
-
-  //!SECTION
-  // updateVerticalHints() {
-  //   const verticalHintsContainer = document.getElementById("vertical-hints");
-  //   verticalHintsContainer.innerHTML = "";
-
-  //   for (let col = 0; col < this.columns; col++) {
-  //     const solutionColumn = this.getColumnHints(col, true);
-  //     const colArray = this.grid[col];
-  //     console.log("colArray", colArray);
-  //     const hintElement = document.createElement("div");
-  //     hintElement.className = `vertical-hint col-${col}`;
-  //     hintElement.innerText = solutionColumn.join(" ");
-  //     // Check if all cells in the row are filled correctly
-  //     const isColCompleted = colArray.every(
-  //       (cell) =>
-  //         !cell.solution ||
-  //         (cell.isFilled &&
-  //           (cell.colorClass === "black" || cell.colorClass === "green"))
-  //     );
-  //     console.log("isColCompleted", isColCompleted);
-  //     // Update class based on the completion status
-  //     if (isColCompleted) {
-  //       hintElement.classList.add("completed-col");
-  //     }
-
-  //     verticalHintsContainer.appendChild(hintElement);
-  //   }
-  // }
-
-  //TODO -
   updateVerticalHints() {
     const verticalHintsContainer = document.getElementById("vertical-hints");
     verticalHintsContainer.innerHTML = "";
@@ -248,7 +221,8 @@ class Nonogram {
         hintElement.classList.add("completed-column");
       }
 
-      solutionColumn.forEach((hintNumber, index) => {
+      const processedHints = this.processHints(solutionColumn);
+      processedHints.forEach((hintNumber, index) => {
         const span = document.createElement("span");
         span.innerText = hintNumber;
         if (isColumnCompleted) {
@@ -256,10 +230,10 @@ class Nonogram {
         }
         hintElement.appendChild(span);
 
-        if (index < solutionColumn.length - 1) {
-          const space = document.createElement("span");
-          space.innerText = " ";
-          hintElement.appendChild(space);
+        if (index < processedHints.length - 1) {
+          const comma = document.createElement("span");
+          comma.innerText = ",";
+          hintElement.appendChild(comma);
         }
       });
 
@@ -267,20 +241,15 @@ class Nonogram {
     }
   }
 
-  // Method to update horizontal hints
-  // updateHorizontalHints() {
-  //   const horizontalHintsContainer =
-  //     document.getElementById("horizontal-hints");
-  //   horizontalHintsContainer.innerHTML = "";
+  processHints(hints) {
+    const processedHints = hints.map((hint) =>
+      hint !== undefined ? hint.toString() : "0"
+    );
+    return processedHints;
+  }
 
-  //   for (let row = 0; row < this.rows; row++) {
-  //     const solutionRow = this.getRowHints(row, true);
-  //     const hintElement = document.createElement("div");
-  //     hintElement.classList.add(`horizontal-hint`, `row-${row}`);
-  //     hintElement.innerText = solutionRow.join(" ");
-  //     horizontalHintsContainer.appendChild(hintElement);
-  //   }
-  // }
+  // Method to update horizontal hints
+
   updateHorizontalHints() {
     const horizontalHintsContainer =
       document.getElementById("horizontal-hints");
@@ -289,11 +258,9 @@ class Nonogram {
     for (let row = 0; row < this.rows; row++) {
       const solutionRow = this.getRowHints(row, true);
       const rowArray = this.grid[row];
-      // console.log("rowArray", rowArray);
 
       const hintElement = document.createElement("div");
       hintElement.className = `horizontal-hint row-${row}`;
-      hintElement.innerText = solutionRow.join(" ");
 
       const isRowCompleted = rowArray.every(
         (cell) =>
@@ -301,11 +268,27 @@ class Nonogram {
           (cell.isFilled &&
             (cell.colorClass === "black" || cell.colorClass === "green"))
       );
-      // console.log("isRowCompleted", isRowCompleted);
 
       if (isRowCompleted) {
         hintElement.classList.add("completed-row");
       }
+
+      // Process the hints and add them to the hintElement
+      const processedHints = this.processHints(solutionRow);
+      processedHints.forEach((hintNumber, index) => {
+        const span = document.createElement("span");
+        span.innerText = hintNumber;
+        if (isRowCompleted) {
+          span.classList.add("completed-hint-number");
+        }
+        hintElement.appendChild(span);
+
+        if (index < processedHints.length - 1) {
+          const comma = document.createElement("span");
+          comma.innerText = ",";
+          hintElement.appendChild(comma);
+        }
+      });
 
       horizontalHintsContainer.appendChild(hintElement);
     }
@@ -368,9 +351,13 @@ function toggleCellValue() {
   toggleButton.classList.toggle("black-mode");
   toggleButton.classList.toggle("red-mode");
 
-  toggleButton.innerText = toggleButton.classList.contains("red-mode")
-    ? "red"
-    : "black";
+  // toggleButton.innerText = toggleButton.classList.contains("red-mode")
+  //   ? "red"
+  //   : "black";
+  const symbol = toggleButton.classList.contains("red-mode") ? "❌" : "■";
+
+  // Update the button's label based on the current mode
+  toggleButton.innerHTML = `<span class="toggle-symbol">${symbol}</span>`;
 }
 
 const nonogram = new Nonogram();

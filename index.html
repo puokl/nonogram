@@ -8,6 +8,7 @@
     <title>Nonogram</title>
   </head>
   <body>
+    <div id="error-count">&#x2665;&#x2665;&#x2665;</div>
     <div class="hints-container">
       <div class="horizontal-hints" id="horizontal-hints"></div>
       <div>
@@ -15,10 +16,26 @@
         <div id="grid-container"></div>
       </div>
     </div>
-    <div id="error-count">Errors left: 3</div>
+
     <div>
       <div id="toggle-label">Select a color:</div>
-      <button class="black-mode" onclick="toggleCellValue()">Black</button>
+      <button id="toggle-button" class="black-mode" onclick="toggleCellValue()">
+        <span class="toggle-symbol red-mode">&#10060;</span>
+        <span class="toggle-symbol black-mode">&#9724;</span>
+      </button>
+    </div>
+
+    <div>
+      <h2>Select a color:</h2>
+
+      <label class="switch">
+        <input type="checkbox" id="colorToggle" />
+        <span class="slider"></span>
+        <div class="symbols">
+          <div class="black-symbol">&#9632;</div>
+          <div class="red-symbol">X</div>
+        </div>
+      </label>
     </div>
     <script src="nonogram.js"></script>
   </body>
