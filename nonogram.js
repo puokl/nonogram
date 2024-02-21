@@ -209,12 +209,13 @@ class Nonogram {
       const hintElement = document.createElement("div");
       hintElement.className = `vertical-hint col-${col}`;
 
-      const isColumnCompleted = columnArray.every(
-        (cell) =>
+      const isColumnCompleted = columnArray.every((cell) => {
+        return (
           !cell.solution ||
-          (cell.isFilled &&
-            (cell.colorClass === "black" || cell.colorClass === "green"))
-      );
+          (cell.isFilled && cell.colorClass === "black") ||
+          (cell.colorClass.includes("green") && cell.colorClass.includes("red"))
+        );
+      });
 
       if (isColumnCompleted) {
         hintElement.classList.add("completed-column");
@@ -260,9 +261,6 @@ class Nonogram {
       hintElement.className = `horizontal-hint row-${row}`;
 
       const isRowCompleted = rowArray.every((cell) => {
-        console.log("cell", cell);
-        console.log("cell.colorClass", cell.colorClass);
-        console.log("cell.isFilled", cell.isFilled);
         return (
           !cell.solution ||
           (cell.isFilled && cell.colorClass === "black") ||
