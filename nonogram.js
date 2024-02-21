@@ -356,4 +356,4 @@ function toggleCellValue() {
 }
 
 const nonogram = new Nonogram();
-nonogram.loadMatrix("matrix1.json");
+nonogram.loadMatrix("example.json");
