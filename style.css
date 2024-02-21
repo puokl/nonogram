@@ -35,7 +35,10 @@ body {
   gap: 20px;
   padding-left: 15px;
 }
-
+/* .vertical-hints span {
+  display: flex;
+  flex-direction: column;
+} */
 #grid-container {
   display: grid;
   grid-template-columns: repeat(10, 30px);
@@ -59,7 +62,6 @@ body {
   width: 30px;
   height: 30px;
   box-sizing: border-box;
-  /* border: 1px solid black; */
   border: 1px solid #ccc;
   display: inline-block;
 }
@@ -68,22 +70,43 @@ body {
   background-color: #000;
 }
 
-.black {
+.black.full {
   background-color: #000;
 }
 
-.red {
+.red.empty {
   background-color: white;
 }
-.red::before {
+/* .red::before {
   content: "x";
   color: black;
-  /* font-weight: bold; */
   font-family: "Arial", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.5em;
+} */
+.red:not(.green.full)::before {
+  content: "x";
+  color: black;
+  font-family: "Arial", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+}
+.red.full.green {
+  background-color: green;
+}
+.black.green.empty::before {
+  content: "x";
+  color: green;
+  font-family: "Arial", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  background-color: white;
 }
 
 #toggle-label {
@@ -98,20 +121,6 @@ button {
   cursor: pointer;
 }
 
-/* .black-mode {
-  background-color: black;
-  color: white;
-}
-
-.red-mode {
-  background-color: red;
-  color: black;
-} */
-
-.green {
-  background-color: green;
-}
-
 .completed-row {
   color: red;
 }
@@ -121,6 +130,8 @@ button {
 }
 #error-count {
   margin-bottom: 20px;
+  font-size: 32px;
+  color: red;
 }
 
 #toggle-button {
@@ -144,11 +155,13 @@ button {
 .red-mode .toggle-symbol.black-mode {
   color: #000000;
 }
+
 /* switch */
+
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
+  width: 68px;
   height: 34px;
 }
 
@@ -167,60 +180,57 @@ button {
   bottom: 0;
   background-color: #ccc;
   transition: 0.4s;
-  border-radius: 34px;
+  border-radius: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slider .left-symbol,
+.slider .right-symbol {
+  color: black;
+  transition: 0.4s;
+  font-size: 40px;
+  z-index: 2;
+}
+.left-symbol {
+  padding-left: 5px;
+  padding-bottom: 3px;
+}
+.right-symbol {
+  padding-right: 8px;
+  padding-bottom: 6px;
+}
+
+.slider .right-symbol {
+  font-size: 32px;
 }
 
 .slider:before {
-  position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
+  position: absolute;
+  height: 34px;
+  width: 34px;
+  background-color: #fff;
   border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #2196f3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
+  transform-origin: center;
+  transition: 0.4s left, 0.4s box-shadow;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 input:checked + .slider:before {
-  transform: translateX(26px);
+  left: calc(100% - 34px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 
-.slider.round {
-  border-radius: 34px;
+input:checked + .slider .left-symbol {
+  opacity: 1;
 }
 
-.slider.round:before {
-  border-radius: 50%;
+input:checked + .slider .right-symbol {
+  opacity: 1;
 }
 
-.symbols {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-}
-
-.black-symbol,
-.red-symbol {
-  font-size: 24px;
-  color: #2196f3;
-  transition: color 0.4s;
-}
-
-input:checked + .slider + .symbols .black-symbol {
-  color: black;
-}
-
-input:checked + .slider + .symbols .red-symbol {
-  color: #ff0000;
+.select {
+  margin-top: 20px;
 }

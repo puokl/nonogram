@@ -17,24 +17,13 @@
       </div>
     </div>
 
-    <div>
-      <div id="toggle-label">Select a color:</div>
-      <button id="toggle-button" class="black-mode" onclick="toggleCellValue()">
-        <span class="toggle-symbol red-mode">&#10060;</span>
-        <span class="toggle-symbol black-mode">&#9724;</span>
-      </button>
-    </div>
-
-    <div>
-      <h2>Select a color:</h2>
-
+    <div class="select">
       <label class="switch">
-        <input type="checkbox" id="colorToggle" />
-        <span class="slider"></span>
-        <div class="symbols">
-          <div class="black-symbol">&#9632;</div>
-          <div class="red-symbol">X</div>
-        </div>
+        <input type="checkbox" id="toggle-switch" />
+        <span class="slider round">
+          <span class="left-symbol">&#9632;</span>
+          <span class="right-symbol">&#x2179;</span>
+        </span>
       </label>
     </div>
     <script src="nonogram.js"></script>

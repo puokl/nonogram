@@ -32,7 +32,6 @@ class Nonogram {
   updateUI() {
     const gridContainer = document.getElementById("grid-container");
 
-    // Clear the existing content
     gridContainer.innerHTML = "";
 
     // Populate the grid cells based on the current state
@@ -134,10 +133,14 @@ class Nonogram {
       return;
     }
 
-    const toggleButton = document.querySelector("button");
-    const buttonColor = toggleButton.classList.contains("black-mode")
-      ? "black"
-      : "red";
+    // const toggleButton = document.querySelector("button");
+    // const buttonColor = toggleButton.classList.contains("black-mode")
+    //   ? "black"
+    //   : "red";
+    const toggleLabel = document.querySelector(".switch");
+    const buttonColor = toggleLabel.classList.contains("red-mode")
+      ? "red"
+      : "black";
 
     // Check if the move is incorrect
     if (!cell.isFilled) {
@@ -147,11 +150,9 @@ class Nonogram {
       ) {
         this.errors--;
 
-        // const errorCountElement = document.getElementById("error-count");
-        // errorCountElement.innerText = `Errors left: ${this.errors}`;
         this.updateErrorCount();
 
-        cell.colorClass = "green";
+        cell.colorClass = "green" + " " + (cell.solution ? "red" : "black");
 
         if (this.errors === 0) {
           alert("Game Over! You've run out of errors.");
@@ -196,8 +197,6 @@ class Nonogram {
     console.log("win");
     return true;
   }
-
-  // Method to update vertical hints
 
   updateVerticalHints() {
     const verticalHintsContainer = document.getElementById("vertical-hints");
@@ -248,8 +247,6 @@ class Nonogram {
     return processedHints;
   }
 
-  // Method to update horizontal hints
-
   updateHorizontalHints() {
     const horizontalHintsContainer =
       document.getElementById("horizontal-hints");
@@ -262,12 +259,16 @@ class Nonogram {
       const hintElement = document.createElement("div");
       hintElement.className = `horizontal-hint row-${row}`;
 
-      const isRowCompleted = rowArray.every(
-        (cell) =>
+      const isRowCompleted = rowArray.every((cell) => {
+        console.log("cell", cell);
+        console.log("cell.colorClass", cell.colorClass);
+        console.log("cell.isFilled", cell.isFilled);
+        return (
           !cell.solution ||
-          (cell.isFilled &&
-            (cell.colorClass === "black" || cell.colorClass === "green"))
-      );
+          (cell.isFilled && cell.colorClass === "black") ||
+          (cell.colorClass.includes("green") && cell.colorClass.includes("red"))
+        );
+      });
 
       if (isRowCompleted) {
         hintElement.classList.add("completed-row");
@@ -294,19 +295,16 @@ class Nonogram {
     }
   }
 
-  // Method to get hints for a specific column
   getColumnHints(col, isSolution = false) {
     const column = this.grid.map((row) => row[col]);
     return this.getHints(column, isSolution);
   }
 
-  // Method to get hints for a specific row
   getRowHints(row, isSolution = false) {
     const rowArray = this.grid[row];
     return this.getHints(rowArray, isSolution);
   }
 
-  // Helper method to get hints for a specific array
   getHints(array, isSolution) {
     const hints = [];
     let currentCount = 0;
@@ -346,18 +344,15 @@ class Nonogram {
   }
 }
 
+const toggleSwitch = document.getElementById("toggle-switch");
+toggleSwitch.addEventListener("change", toggleCellValue);
+
 function toggleCellValue() {
-  const toggleButton = document.querySelector("button");
-  toggleButton.classList.toggle("black-mode");
-  toggleButton.classList.toggle("red-mode");
+  const toggleSwitch = document.getElementById("toggle-switch");
+  const toggleLabel = document.querySelector(".switch");
 
-  // toggleButton.innerText = toggleButton.classList.contains("red-mode")
-  //   ? "red"
-  //   : "black";
-  const symbol = toggleButton.classList.contains("red-mode") ? "❌" : "■";
-
-  // Update the button's label based on the current mode
-  toggleButton.innerHTML = `<span class="toggle-symbol">${symbol}</span>`;
+  toggleLabel.classList.toggle("red-mode", toggleSwitch.checked);
+  toggleLabel.classList.toggle("black-mode", !toggleSwitch.checked);
 }
 
 const nonogram = new Nonogram();
