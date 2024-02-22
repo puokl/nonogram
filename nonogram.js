@@ -232,7 +232,7 @@ class Nonogram {
 
         if (index < processedHints.length - 1) {
           const comma = document.createElement("span");
-          comma.innerText = ",";
+          comma.innerText = "-";
           hintElement.appendChild(comma);
         }
       });
@@ -284,7 +284,7 @@ class Nonogram {
 
         if (index < processedHints.length - 1) {
           const comma = document.createElement("span");
-          comma.innerText = ",";
+          comma.innerText = "-";
           hintElement.appendChild(comma);
         }
       });
