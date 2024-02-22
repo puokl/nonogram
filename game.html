@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="game-style.css" />
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+    <title>Nonogram</title>
+  </head>
+  <body>
+    <div id="error-count">&#x2665;&#x2665;&#x2665;</div>
+    <div class="hints-container">
+      <div class="horizontal-hints" id="horizontal-hints"></div>
+      <div>
+        <div class="vertical-hints" id="vertical-hints"></div>
+        <div id="grid-container"></div>
+      </div>
+    </div>
+
+    <div class="select">
+      <label class="switch">
+        <input type="checkbox" id="toggle-switch" />
+        <span class="slider round">
+          <span class="left-symbol">&#9632;</span>
+          <span class="right-symbol">&#x2179;</span>
+        </span>
+      </label>
+    </div>
+
+    <a href="index.html" class="back-to-home-button">Back to Home</a>
+    <script src="nonogram.js"></script>
+  </body>
+</html>

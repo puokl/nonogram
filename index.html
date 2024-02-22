@@ -4,28 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
-    <title>Nonogram</title>
+    <title>Nonogram - Welcome</title>
   </head>
-  <body>
-    <div id="error-count">&#x2665;&#x2665;&#x2665;</div>
-    <div class="hints-container">
-      <div class="horizontal-hints" id="horizontal-hints"></div>
-      <div>
-        <div class="vertical-hints" id="vertical-hints"></div>
-        <div id="grid-container"></div>
-      </div>
-    </div>
 
-    <div class="select">
-      <label class="switch">
-        <input type="checkbox" id="toggle-switch" />
-        <span class="slider round">
-          <span class="left-symbol">&#9632;</span>
-          <span class="right-symbol">&#x2179;</span>
-        </span>
-      </label>
+  <body>
+    <div class="landing-container">
+      <h1>Welcome to Nonogram!</h1>
+      <p>
+        Nonogram is a picture logic puzzle where you fill in cells to reveal the
+        hidden picture. Here are the rules:
+      </p>
+      <ul>
+        <li>
+          Each puzzle consists of a grid with numbers along the top and left
+          sides.
+        </li>
+        <li>
+          The numbers indicate groups of filled cells in each row or column.
+        </li>
+        <li>
+          Your goal is to use the provided clues to determine which cells should
+          be filled in to create an image.
+        </li>
+        <li>
+          Click on cells to fill them, and use the toggle button to switch
+          between black and red colors.
+        </li>
+        <li>
+          If an error is made, the filled cells will turn green, and you have a
+          limited number of errors allowed.
+        </li>
+        <li>
+          Complete the puzzle by filling in all the correct cells and reveal the
+          hidden picture!
+        </li>
+      </ul>
+      <a href="game.html" class="start-button">Start Game</a>
     </div>
-    <script src="nonogram.js"></script>
   </body>
 </html>
