@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./avatarph.png" />
     <link rel="stylesheet" href="style.css" />
-    <title>Nonogram - Welcome</title>
+    <title>Nonogram - Phuoc's playground</title>
   </head>
 
   <body>
@@ -17,29 +18,32 @@
       <ul>
         <li>
           Each puzzle consists of a grid with numbers along the top and left
-          sides.
+          sides. These numbers provide clues for filling in the cells.
         </li>
         <li>
-          The numbers indicate groups of filled cells in each row or column.
+          The numbers indicate groups of filled cells in each row or column. For
+          example, "3 2" means there are groups of three and two filled cells,
+          separated by at least one empty cell.
         </li>
         <li>
           Your goal is to use the provided clues to determine which cells should
           be filled in to create an image.
         </li>
         <li>
-          Click on cells to fill them, and use the toggle button to switch
-          between black and red colors.
+          Click on cells to fill them. Use the toggle button to switch between
+          cells to be selected (e.g., filled with color) and cells to be
+          discarded (e.g., marked with an 'X').
         </li>
         <li>
-          If an error is made, the filled cells will turn green, and you have a
-          limited number of errors allowed.
+          If an error is made, the filled cells will turn green. You have a
+          limited number of errors allowed, so use them wisely.
         </li>
         <li>
-          Complete the puzzle by filling in all the correct cells and reveal the
-          hidden picture!
+          Complete the puzzle by filling in all the correct cells according to
+          the clues, revealing the hidden picture!
         </li>
       </ul>
-      <a href="game.html" class="start-button">Start Game</a>
+      <a href="game.html" class="toggle-button">Start Game</a>
     </div>
   </body>
 </html>
